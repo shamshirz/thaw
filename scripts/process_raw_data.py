@@ -111,22 +111,26 @@ def save_rate_data(electric_rates: pd.DataFrame, oil_rates: pd.DataFrame, output
 
 def main():
     data_dir = Path("data")
-    electric_raw = data_dir / "electric_raw.csv"
-    oil_raw = data_dir / "oil_raw.csv"
+    raw_dir = data_dir / "raw"
+    processed_dir = data_dir / "processed"
+    
+    # Create directories if they don't exist
+    raw_dir.mkdir(exist_ok=True)
+    processed_dir.mkdir(exist_ok=True)
     
     # Process each utility's data
-    electric_costs, electric_rates = process_electric_data(electric_raw)
-    oil_costs, oil_rates = process_oil_data(oil_raw)
+    electric_costs, electric_rates = process_electric_data(raw_dir / "electric_raw.csv")
+    oil_costs, oil_rates = process_oil_data(raw_dir / "oil_raw.csv")
     
     # Combine the cost data
     combined_df = combine_utility_data(electric_costs, oil_costs)
     
     # Save the combined cost data
-    combined_df.to_csv(data_dir / "utility_costs.csv", index=False)
-    logger.info(f"Combined utility data saved to {data_dir / 'utility_costs.csv'}")
+    combined_df.to_csv(processed_dir / "utility_costs.csv", index=False)
+    logger.info(f"Combined utility data saved to {processed_dir / 'utility_costs.csv'}")
     
     # Save the rate data
-    save_rate_data(electric_rates, oil_rates, data_dir)
+    save_rate_data(electric_rates, oil_rates, processed_dir)
 
 if __name__ == "__main__":
-    main() 
+    main()

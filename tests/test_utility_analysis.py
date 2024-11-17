@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 import pytest
 import matplotlib.pyplot as plt
-from utility_analysis import create_monthly_comparison, load_utility_data
+from scripts import create_monthly_comparison, load_utility_data
 
 @pytest.fixture
 def sample_data():

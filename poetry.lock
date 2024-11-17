@@ -903,6 +903,22 @@ files = [
 ]
 
 [[package]]
+name = "meteostat"
+version = "1.6.8"
+description = "Access and analyze historical weather and climate data with Python."
+optional = false
+python-versions = ">=3.6.0"
+files = [
+    {file = "meteostat-1.6.8-py3-none-any.whl", hash = "sha256:859a7f2cbf3d902e9ce48363ff9490385a22296742ced7070360d06d3415ef97"},
+    {file = "meteostat-1.6.8.tar.gz", hash = "sha256:e4e1e3df79e52d45116a12a5ac703acf75d521356de072052c1f60e42160a74d"},
+]
+
+[package.dependencies]
+numpy = "*"
+pandas = ">=1.1"
+pytz = "*"
+
+[[package]]
 name = "mypy-extensions"
 version = "1.0.0"
 description = "Type system extensions for programs checked with the mypy type checker."
@@ -1570,4 +1586,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6d0cdb69623055fa15ef7e1cf5600cfe74bc3675b1b9ed6efb6962da02cfc5ef"
+content-hash = "e32d79730d972084a4d83186ad3c96781f4cd4d52b33b48caad8de2afee004ab"

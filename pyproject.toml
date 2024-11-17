@@ -3,7 +3,7 @@ name = "utility-analysis"
 version = "0.1.0"
 description = "Utility cost analysis and visualization tool"
 authors = ["Aaron Votre <avotre422@gmail.com>"]
-packages = [{include = "utility_analysis"}]
+packages = [{include = "scripts"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -13,6 +13,7 @@ seaborn = "^0.13.2"
 pdfminer-six = "^20231228"
 python-dotenv = "^1.0.0"
 openai = "^1.12.0"
+meteostat = "^1.6.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
@@ -24,9 +25,13 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-ua = "utility_analysis.utility_analysis:main"
-process = "utility_analysis.process_raw_data:main"
-extract = "utility_analysis.extract_pdf_data:main"
+costs = "scripts.visualize_costs:main"
+process = "scripts.process_raw_data:main"
+extract = "scripts.extract_pdf_data:main"
+weather = "scripts.fetch_weather:main"
+efficiency = "scripts.calculate_efficiency:main"
+analyze = "scripts.analyze_efficiency:main"
+savings = "scripts.analyze_savings:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
