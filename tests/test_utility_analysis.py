@@ -36,21 +36,14 @@ def test_load_utility_data(tmp_path):
     assert 'month' in df.columns
 
 def test_create_monthly_comparison(sample_data, tmp_path):
-    """Test that visualizations are created successfully"""
+    """Test that visualization is created successfully"""
     # Create output directory
     output_dir = tmp_path / "output"
     output_dir.mkdir(exist_ok=True)
     
-    # Test electricity visualization
-    plt = create_monthly_comparison(sample_data, 'electricity_cost')
-    plt.savefig(output_dir / 'test_electricity.png')
+    # Test combined visualization
+    plt = create_monthly_comparison(sample_data)
+    plt.savefig(output_dir / 'test_utility_comparison.png')
     plt.close()
     
-    assert (output_dir / 'test_electricity.png').exists()
-    
-    # Test oil visualization
-    plt = create_monthly_comparison(sample_data, 'oil_cost')
-    plt.savefig(output_dir / 'test_oil.png')
-    plt.close()
-    
-    assert (output_dir / 'test_oil.png').exists() 
+    assert (output_dir / 'test_utility_comparison.png').exists() 

@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 def load_utility_data(file_path):
     """
@@ -15,10 +16,10 @@ def load_utility_data(file_path):
     df['month'] = df['date'].dt.month
     return df
 
-def create_monthly_comparison(df, utility_type):
+def create_monthly_comparison(df):
     """
-    Create a grouped bar chart comparing monthly costs across years
-    utility_type: 'electricity_cost' or 'oil_cost'
+    Create a stacked bar chart comparing monthly costs across years
+    with electricity in yellow and oil in red
     """
     plt.figure(figsize=(15, 7))
     
@@ -29,23 +30,47 @@ def create_monthly_comparison(df, utility_type):
     bar_width = 0.35
     months = range(1, 13)
     
+    # Color schemes for each year
+    colors = {
+        'electricity': ['#FFE5B4', '#FFD700'],  # Light yellow to golden yellow
+        'oil': ['#FF6B6B', '#8B0000']          # Light red to dark red
+    }
+    
     # Create bars for each year
     for i, year in enumerate(years):
         year_data = df[df['year'] == year]
-        monthly_costs = [
-            year_data[year_data['month'] == month][utility_type].iloc[0] 
+        
+        # Calculate monthly costs
+        monthly_electricity = [
+            year_data[year_data['month'] == month]['electricity_cost'].iloc[0] 
             if not year_data[year_data['month'] == month].empty 
             else 0 
             for month in months
         ]
         
+        monthly_oil = [
+            year_data[year_data['month'] == month]['oil_cost'].iloc[0] 
+            if not year_data[year_data['month'] == month].empty 
+            else 0 
+            for month in months
+        ]
+        
+        # Position bars
         positions = [x + (i * bar_width) for x in range(len(months))]
-        plt.bar(positions, monthly_costs, bar_width, label=str(year))
+        
+        # Create stacked bars
+        plt.bar(positions, monthly_electricity, bar_width, 
+                label=f'Electricity {year}', 
+                color=colors['electricity'][i])
+        plt.bar(positions, monthly_oil, bar_width, 
+                bottom=monthly_electricity,
+                label=f'Oil {year}', 
+                color=colors['oil'][i])
     
     # Customize the plot
     plt.xlabel('Month')
     plt.ylabel('Cost ($)')
-    plt.title(f'Monthly {utility_type.replace("_", " ").title()} Comparison by Year')
+    plt.title('Monthly Utility Costs Comparison by Year')
     plt.legend()
     
     # Set x-axis labels to month names
@@ -59,17 +84,17 @@ def create_monthly_comparison(df, utility_type):
     return plt
 
 def main():
+    # Create output directory if it doesn't exist
+    output_dir = Path("output")
+    output_dir.mkdir(exist_ok=True)
+    
     # Load the data
-    file_path = 'utility_costs.csv'
+    file_path = Path("data") / "utility_costs.csv"
     df = load_utility_data(file_path)
     
-    # Create plots for both electricity and oil
-    create_monthly_comparison(df, 'electricity_cost')
-    plt.savefig('electricity_comparison.png')
-    plt.close()
-    
-    create_monthly_comparison(df, 'oil_cost')
-    plt.savefig('oil_comparison.png')
+    # Create combined plot
+    plt = create_monthly_comparison(df)
+    plt.savefig(output_dir / 'utility_comparison.png')
     plt.close()
 
 if __name__ == "__main__":
