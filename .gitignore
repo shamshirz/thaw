@@ -1,3 +1,8 @@
+# input directory
+data/*raw.csv
+data/*secret.csv
+data/electric_bills
+
 # Output directory
 output/
 output/*

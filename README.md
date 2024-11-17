@@ -54,3 +54,35 @@ curl https://mise.run | sh
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
 ```
+
+## Data Processing
+
+If you have raw utility data, you can process it using the following steps:
+
+1. Place your raw data files in the `data` directory:
+   - `electric_raw.csv`: Electric bill data with columns: date, amount, kwh_used, rate
+   - `oil_raw.csv`: Oil delivery data with columns: date, amount, gallons, price_per_gallon
+
+2. Process the raw data:
+```bash
+poetry run process
+```
+
+This will create `utility_costs.csv` in the data directory, which can then be used by the main analysis script.
+
+## PDF Bill Processing - Under Development
+
+To extract data from PDF bills:
+
+1. Place your electric bill PDFs in `data/electric_bills/`
+2. Create a `.env` file with your OpenAI API key:
+```
+OPENAI_API_KEY=your_api_key_here
+```
+
+3. Run the extraction:
+```bash
+poetry run extract
+```
+
+This will create `electric_raw.csv` from your PDF bills.

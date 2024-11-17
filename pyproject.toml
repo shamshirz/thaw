@@ -10,6 +10,9 @@ python = "^3.11"
 pandas = "^2.2.0"
 matplotlib = "^3.8.2"
 seaborn = "^0.13.2"
+pdfminer-six = "^20231228"
+python-dotenv = "^1.0.0"
+openai = "^1.12.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
@@ -22,6 +25,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 ua = "utility_analysis.utility_analysis:main"
+process = "utility_analysis.process_raw_data:main"
+extract = "utility_analysis.extract_pdf_data:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
