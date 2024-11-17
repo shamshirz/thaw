@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "utility-analysis"
+version = "0.1.0"
+description = "Utility cost analysis and visualization tool"
+authors = ["Aaron Votre <avotre422@gmail.com>"]
+packages = [{include = "utility_analysis"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.0"
+matplotlib = "^3.8.2"
+seaborn = "^0.13.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.1.1"
+flake8 = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ua = "utility_analysis.utility_analysis:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
