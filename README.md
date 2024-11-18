@@ -1,6 +1,6 @@
 # Utility Analysis
 
-A tool for analyzing and visualizing utility costs over time.
+A tool for analyzing and visualizing utility costs over time. Completely coded through cursor composer!
 ![Normalized Utility Cost Comparison](utility_comparison_normalized.png)
 
 
